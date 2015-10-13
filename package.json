@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "babel-runtime": "^5.8.25",
-    "bem-components-dist": "github:just-boris/bem-components-dist#2.3.0",
+    "bem-components-dist": "2.3.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   }
