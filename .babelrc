@@ -1,4 +1,5 @@
 {
+  "optional": ["runtime", "es7.decorators", "es7.classProperties"],
   "plugins": [
     "react-require"
   ]
