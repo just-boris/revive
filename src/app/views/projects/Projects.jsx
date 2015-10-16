@@ -1,10 +1,12 @@
-import b from 'b_';
+import './styles.css';
+import bem from 'b_';
 import { Component } from 'react';
 import { fetchProjects } from '../../actions/projects';
+import Project from '../../components/project/Project.jsx';
 
 import store from '../../store';
 
-const bl = b.with('projects');
+const b = bem.with('projects');
 
 export default class Projects extends Component {
 
@@ -15,7 +17,7 @@ export default class Projects extends Component {
 
     componentDidMount() {
         this.unsubscibe = store.subscribe(this.onStoreUpdate.bind(this));
-        store.dispatch(fetchProjects('stars:>1000%20pushed:"2010-01-01%20..%202015-04-01"'));
+        store.dispatch(fetchProjects('stars:>1000 pushed:"2010-01-01%20..%202015-04-01"'));
     }
 
     componentWillUnmount() {
@@ -29,10 +31,10 @@ export default class Projects extends Component {
 
     render() {
         const {projects} = this.state;
-        return <div className={bl()}>
+        return <div className={b()}>
             <h1>{projects.length > 0 ? 'Projects' : 'Loading projects...'}</h1>
             {projects.map((project) => {
-                return <p key={project.id}>{project.full_name} {project.stargazers_count}</p>
+                return <Project key={project.id} project={project} />
             })}
         </div>
     }

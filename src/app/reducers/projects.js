@@ -5,6 +5,6 @@ export default function(state = {}, action = {}) {
         case RECEIVE_REPOS:
             return Object.assign({}, state, {projects: action.projects});
         default:
-            return state = {}
+            return state;
     }
 }

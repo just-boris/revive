@@ -12,5 +12,5 @@ browserSync.init({
     server: {
         baseDir: 'build'
     },
-    files: ['build/**']
+    files: ['build/*.js', 'build/*.css']
 });
