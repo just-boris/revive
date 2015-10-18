@@ -1,5 +1,5 @@
 import './styles.css';
-import bem from 'b_';
+import bem from 'b_' ;
 import { Component } from 'react';
 import { fetchProjects } from '../../actions/projects';
 import Project from '../../components/project/Project.jsx';
@@ -25,14 +25,14 @@ export default class Projects extends Component {
     }
 
     onStoreUpdate() {
-        const {projects} = store.getState();
-        this.setState({projects});
+        const {projects, projectsLoading} = store.getState();
+        this.setState({projects, projectsLoading});
     }
 
     render() {
-        const {projects} = this.state;
+        const {projects, projectsLoading} = this.state;
         return <div className={b()}>
-            <h1>{projects.length > 0 ? 'Projects' : 'Loading projects...'}</h1>
+            <h1>{projectsLoading ? 'Loading projects...' : 'Projects'}</h1>
             {projects.map((project) => {
                 return <Project key={project.id} project={project} />
             })}
