@@ -7,7 +7,7 @@ const autoprefixer = require('autoprefixer');
 const precss      = require('precss');
 
 module.exports = {
-  entry: './src/app/index.jsx',
+  entry: './src/application/index.jsx',
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'app.js'

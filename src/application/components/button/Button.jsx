@@ -1,9 +1,11 @@
-import {Component, PropTypes} from 'react';
+import {PropTypes} from 'react';
+import BemComponent from '../bem-component/BemComponent.jsx'
+import {extend} from '../../decorators';
 import bem from 'b_';
 
 const b = bem.with('button');
 
-export default class Button extends Component {
+export default class Button extends BemComponent {
     render() {
         const {className, view, theme, size} = this.props;
         const mods = Object.assign({view, theme, size}, this.state);
@@ -32,15 +34,9 @@ export default class Button extends Component {
         this.setState({pressed: false});
     }
 
+    @extend
     static propTypes = {
-        theme: PropTypes.string,
-        size: PropTypes.string,
         view: PropTypes.string,
         text: PropTypes.string
-    };
-
-    static defaultProps = {
-        theme: 'islands',
-        size: 'm'
     };
 }
