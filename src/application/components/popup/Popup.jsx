@@ -1,4 +1,5 @@
 import BemComponent from '../bem-component/BemComponent.jsx';
+import {extend} from '../../decorators';
 import bem from 'b_';
 
 const b = bem.with('popup');
@@ -6,7 +7,7 @@ const b = bem.with('popup');
 export default class Popup extends BemComponent {
 
     render() {
-        const {theme, size} = this.props;
-        return <div className={b({theme, size})}>{this.props.children}</div>;
+        const {theme, size, visible, direction} = this.props;
+        return <div className={b({theme, size, visible, direction, js: 'inited'})}>{this.props.children}</div>;
     }
 }
