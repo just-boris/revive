@@ -13,16 +13,19 @@ export function hoverable(Target) {
 
         constructor(props) {
             super(props);
-            this.state = {hovered: false}
+            this.state = {hovered: false};
+            this.onMouseEnter = this.onMouseEnter.bind(this);
+            this.onMouseLeave = this.onMouseLeave.bind(this);
         }
 
         componentDidMount() {
-            findDOMNode(this).addEventListener('mouseenter', this.onMouseEnter.bind(this));
-            findDOMNode(this).addEventListener('mouseleave', this.onMouseLeave.bind(this));
+            findDOMNode(this).addEventListener('mouseenter', this.onMouseEnter);
+            findDOMNode(this).addEventListener('mouseleave', this.onMouseLeave);
         }
 
         componentWillUnmount() {
-            //window.removeEventListener('resize', this.handleResize);
+            findDOMNode(this).removeEventListener('mouseenter', this.onMouseEnter);
+            findDOMNode(this).removeEventListener('mouseleave', this.onMouseLeave);
         }
 
         onMouseEnter() {

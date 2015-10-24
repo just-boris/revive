@@ -4,7 +4,7 @@ function update(state, newState) {
     return Object.assign({}, state, newState);
 }
 
-export default function(state = {}, action = {}) {
+export default function(state = {projects: []}, action = {}) {
     switch(action.type) {
         case REQUEST_REPOS:
             return  update(state, {projects: [], projectsLoading: true});
