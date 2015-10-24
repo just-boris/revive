@@ -1,0 +1,9 @@
+.label {
+  font-weight: bold;
+  display: inline-block;
+  &_size_m {
+    padding: 5px 0;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+}

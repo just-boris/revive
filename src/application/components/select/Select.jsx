@@ -19,18 +19,26 @@ export default class Select extends BemComponent {
         this.setState({opened: !this.state.opened});
     }
 
+    getDisplayValue(value) {
+        const option = this.props.options.find((option) => option.value === value);
+        return option ? option.name : 'Not selected';
+    }
+
+    setValue(value) {
+        this.props.onSelect(value);
+        this.toggleSelect();
+    }
+
     render() {
-        const {value, theme, size} = this.props;
+        const {value, options, theme, size} = this.props;
         const {opened} = this.state;
         return <div className={b({theme, size, opened})}>
-            <Button className={b('button')} text={value} onClick={this.toggleSelect.bind(this)}>
+            <Button className={b('button')} text={this.getDisplayValue(value)} onClick={this.toggleSelect.bind(this)}>
                 <i className={['icon', b('tick')].join(' ')}></i>
             </Button>
             <Popup visible={opened} direction="bottom-left">
                 <Menu className={b('menu')}>
-                    <MenuItem>Доклад</MenuItem>
-                    <MenuItem>Мастер-класс</MenuItem>
-                    <MenuItem>Круглый стол</MenuItem>
+                    {options.map(opt => <MenuItem onClick={() => this.setValue(opt.value)} key={opt.value}>{opt.name}</MenuItem>)}
                 </Menu>
             </Popup>
         </div>
@@ -38,6 +46,7 @@ export default class Select extends BemComponent {
 
     @extend
     static defaultProps = {
-        value: 'allowAll'
+        onSelect() {},
+        value: null
     };
 }

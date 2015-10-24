@@ -1,8 +1,9 @@
 import './styles.css';
 import { Component } from 'react';
+import { Link } from 'react-router';
 
-export default class Header extends Component {
-    render() {
-        return <div className="header">Header</div>
-    }
+export default function Header(props) {
+    return <div className="header">
+        <Link className="header__brand" to="/">Revive</Link>
+    </div>
 }

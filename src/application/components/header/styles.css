@@ -1,4 +1,20 @@
 .header {
-  padding: 10px;
+  display: flex;
+  align-items: stretch;
+  height: 50px;
+  line-height: 50px;
   border-bottom: 1px solid #ccc;
+  &__brand {
+    padding: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    &:hover {
+      background: #eee;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
 }
