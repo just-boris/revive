@@ -36,7 +36,7 @@ export default class Select extends BemComponent {
             <Button className={b('button')} text={this.getDisplayValue(value)} onClick={this.toggleSelect.bind(this)}>
                 <i className={['icon', b('tick')].join(' ')}></i>
             </Button>
-            <Popup visible={opened} direction="bottom-left">
+            <Popup visible={opened} direction="bottom-left" anchor={this}>
                 <Menu className={b('menu')}>
                     {options.map(opt => <MenuItem onClick={() => this.setValue(opt.value)} key={opt.value}>{opt.name}</MenuItem>)}
                 </Menu>
