@@ -38,8 +38,8 @@ export default class Popup extends BemComponent {
     }
 
     render() {
-        const {theme, size, visible, direction} = this.props;
-        return <Portal isOpened={true}>
+        const {theme, size, visible, direction, autoclosable, onClose} = this.props;
+        return <Portal isOpened={true} closeOnOutsideClick={autoclosable} onClose={onClose}>
             <div className={b({theme, size, visible, direction, js: 'inited'})} ref="popup">{this.props.children}</div>
         </Portal>
     }

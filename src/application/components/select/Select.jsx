@@ -15,8 +15,12 @@ export default class Select extends BemComponent {
         this.state = {opened: false};
     }
 
-    toggleSelect() {
-        this.setState({opened: !this.state.opened});
+    openSelect() {
+        this.setState({opened: true});
+    }
+
+    closeSelect() {
+        this.setState({opened: false})
     }
 
     getDisplayValue(value) {
@@ -26,19 +30,23 @@ export default class Select extends BemComponent {
 
     setValue(value) {
         this.props.onSelect(value);
-        this.toggleSelect();
+        this.closeSelect();
+    }
+
+    getMenuItem(option) {
+        return <MenuItem onClick={() => this.setValue(option.value)} key={option.value}>{option.name}</MenuItem>;
     }
 
     render() {
         const {value, options, theme, size} = this.props;
         const {opened} = this.state;
         return <div className={b({theme, size, opened})}>
-            <Button className={b('button')} text={this.getDisplayValue(value)} onClick={this.toggleSelect.bind(this)}>
+            <Button className={b('button')} text={this.getDisplayValue(value)} onClick={this.openSelect.bind(this)}>
                 <i className={['icon', b('tick')].join(' ')}></i>
             </Button>
-            <Popup visible={opened} direction="bottom-left" anchor={this}>
+            <Popup visible={opened} direction="bottom-left" anchor={this} autoclosable={true} onClose={this.closeSelect.bind(this)}>
                 <Menu className={b('menu')}>
-                    {options.map(opt => <MenuItem onClick={() => this.setValue(opt.value)} key={opt.value}>{opt.name}</MenuItem>)}
+                    {options.map(this.getMenuItem.bind(this))}
                 </Menu>
             </Popup>
         </div>
