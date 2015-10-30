@@ -41,7 +41,7 @@ const b = bem.with('projects');
             query.push(`pushed:"2010-01-01 .. ${pushedBefore.toJSON()}"`);
         }
         if(lang) {
-            query.push('lang:' + lang);
+            query.push('language:' + lang);
         }
         dispatch(fetchProjects(query.join(' ')));
     }
