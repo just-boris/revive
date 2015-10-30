@@ -17,8 +17,8 @@ function requestMock() {
     })
 }
 
-function reposRequested() {
-    return {type: REQUEST_REPOS};
+function reposRequested(query) {
+    return {type: REQUEST_REPOS, query};
 }
 
 function reposReceived(repos) {
@@ -30,7 +30,7 @@ function reposReceived(repos) {
 
 export function fetchProjects(query) {
     return dispatch => {
-        dispatch(reposRequested());
+        dispatch(reposRequested(query));
         return requestMock(endpoint + `/search/repositories?q=${query}&sort=stars&order=desc`)
             .then((data) => dispatch(reposReceived(data.items)));
     }
