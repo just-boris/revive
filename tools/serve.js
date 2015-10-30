@@ -1,16 +1,15 @@
 /*eslint-env node*/
-var browserSync = require('browser-sync').create();
-var webpack = require('webpack');
+const webpack = require('webpack');
+const config = require('../webpack.config').factory(true);
+const webpackDevServer = require('webpack-dev-server');
+const port = process.env.PORT || 3000;
 
-var bundle = webpack(require('../webpack.config'));
-
-bundle.watch({}, (err, stats) => {
-    console.log(stats.toString({colors: true}));
+config.entry.unshift(`webpack-dev-server/client?http://localhost:${port}`, 'webpack/hot/dev-server');
+const compiler = webpack(config);
+const server = new webpackDevServer(compiler, {
+    contentBase: './target/www',
+    stats: { colors: true },
+    inline: true,
+    hot: true
 });
-
-browserSync.init({
-    server: {
-        baseDir: 'build'
-    },
-    files: ['build/*.js', 'build/*.css']
-});
+server.listen(port);

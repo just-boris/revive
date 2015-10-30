@@ -1,6 +1,30 @@
 .project {
+  padding-left: 40px;
+  position: relative;
+  &:before {
+    background: url(./project.svg);
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 32px;
+  }
   &__title {
-    margin: 0.5em 0 0.2em;
+    margin: 1em 0 0.5em;
+    & > a {
+      color: #333;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+        color: #232323;
+      }
+    }
+  }
+  &__lang {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #999;
   }
   &__info {
     margin: 0 0 0.5em;
