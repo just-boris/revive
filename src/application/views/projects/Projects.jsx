@@ -1,37 +1,46 @@
 import './styles.css';
 import bem from 'b_' ;
 import { Component } from 'react';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 import { connect } from 'react-redux';
 import { fetchProjects } from '../../actions/projects';
+import { pushState } from 'redux-router';
 import Project from '../../components/project/Project.jsx';
 import Filters from '../../components/filters/Filters.jsx';
 
 const b = bem.with('projects');
 
-@connect(state => state.projects)
+function parseFilters({fromStars, months, lang}) {
+    return {
+        fromStars: +fromStars || 1000,
+        months: +months || 12,
+        lang: lang
+    }
+}
+
+@connect(state => {
+    return {
+        projects: state.projects,
+        filters: parseFilters(state.router.location.query)
+    }
+})
 class Projects extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            filters: {
-                fromStars: 1000,
-                months: 12
-            }
+    componentDidMount() {
+        this.requestProjects(this.props.filters);
+    }
+
+    componentWillReceiveProps({filters}) {
+        if(!shallowEqual(filters, this.props.filters)) {
+            this.requestProjects(this.props.filters);
         }
     }
 
-    componentDidMount() {
-        this.requestProjects(this.state.filters);
-    }
-
     onChangeFilters(filters) {
-        this.setState({filters});
-        this.requestProjects(filters);
+        this.props.dispatch(pushState(null, '/projects', filters));
     }
 
     requestProjects({fromStars, months, lang}) {
-        const { dispatch } = this.props;
         const query = [];
         if(fromStars) {
             query.push('stars:>' + fromStars);
@@ -44,11 +53,11 @@ class Projects extends Component {
         if(lang) {
             query.push('language:' + lang);
         }
-        dispatch(fetchProjects(query.join(' ')));
+        this.props.dispatch(fetchProjects(query.join(' ')));
     }
 
     getProjectContent() {
-        const {projects, projectsLoading} = this.props;
+        const {projects, projectsLoading} = this.props.projects;
         if(projectsLoading) {
             return <p><i>Loading...</i></p>
         } else {
@@ -60,7 +69,7 @@ class Projects extends Component {
 
     render() {
         return <div className={b()}>
-            <Filters filters={this.state.filters} onChange={this.onChangeFilters.bind(this)}/>
+            <Filters filters={this.props.filters} onChange={this.onChangeFilters.bind(this)}/>
             <div className={b('content')}>
                 {this.getProjectContent()}
             </div>

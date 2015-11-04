@@ -11,8 +11,9 @@ function request(url) {
     });
 }
 
-function requestMock() {
+function requestMock(url) {
     return new Promise((resolve) => {
+        console.log('Fake request', url);
         setTimeout(()=> resolve(require('../mocks/repositories')), 1000)
     })
 }
