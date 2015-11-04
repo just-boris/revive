@@ -15,8 +15,11 @@ export default class Select extends BemComponent {
         this.state = {opened: false};
     }
 
-    openSelect() {
-        this.setState({opened: true});
+    toggleSelect() {
+        const opened = !this.state.opened;
+        setImmediate(() => {
+            this.setState({opened});
+        });
     }
 
     closeSelect() {
@@ -41,7 +44,7 @@ export default class Select extends BemComponent {
         const {value, options, theme, size} = this.props;
         const {opened} = this.state;
         return <div className={b({theme, size, opened})}>
-            <Button className={b('button')} text={this.getDisplayValue(value)} onClick={this.openSelect.bind(this)}>
+            <Button className={b('button')} text={this.getDisplayValue(value)} onMouseDown={this.toggleSelect.bind(this)}>
                 <i className={['icon', b('tick')].join(' ')}></i>
             </Button>
             <Popup visible={opened} direction="bottom-left" anchor={this} autoclosable={true} onClose={this.closeSelect.bind(this)}>

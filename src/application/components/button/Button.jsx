@@ -21,6 +21,7 @@ class Button extends BemComponent {
 
     onMouseDown() {
         this.setState({pressed: true});
+        this.props.onMouseDown();
     }
 
     onMouseUp() {
@@ -35,7 +36,8 @@ class Button extends BemComponent {
 
     @extend
     static defaultProps = {
-        onClick() {}
+        onClick() {},
+        onMouseDown() {}
     }
 }
 
