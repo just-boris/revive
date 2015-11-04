@@ -19,8 +19,11 @@ function makeConfig(hotload) {
         exclude: /node_modules/,
         loader: 'babel-loader'
       }, {
-        test: /\.(png|svg)$/,
-        loader: 'url-loader'
+        test: /\.(png|svg|jpg)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000
+        }
       }, {
         test:   /\.css$/,
         loader: hotload ? 'style-loader!css-loader!postcss-loader' : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')

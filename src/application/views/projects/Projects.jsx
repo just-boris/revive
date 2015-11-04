@@ -8,7 +8,8 @@ import Filters from '../../components/filters/Filters.jsx';
 
 const b = bem.with('projects');
 
-@connect(state => state.projects) class Projects extends Component {
+@connect(state => state.projects)
+class Projects extends Component {
 
     constructor(props) {
         super(props);
@@ -59,9 +60,10 @@ const b = bem.with('projects');
 
     render() {
         return <div className={b()}>
-            <h1>Projects</h1>
             <Filters filters={this.state.filters} onChange={this.onChangeFilters.bind(this)}/>
-            {this.getProjectContent()}
+            <div className={b('content')}>
+                {this.getProjectContent()}
+            </div>
         </div>
     }
 }

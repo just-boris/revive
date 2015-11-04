@@ -41,7 +41,7 @@ export default class Filters extends Component {
 
     render() {
         const filters = this.props.filters;
-        return <div>
+        return <div className={b()}>
             <span className={b('filter')}>
                 <Label>Language:</Label>
                 <Select options={this.state.languages} value={filters.lang} onSelect={(lang)=> this.onChange({lang})} />

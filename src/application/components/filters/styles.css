@@ -1,4 +1,7 @@
 .filters {
+  padding: 1em 2em;
+  border-bottom: 1px solid #bbb;
+  box-shadow: 0 1px 3px #eee;
   &__filter {
     margin-right: 20px;
   }

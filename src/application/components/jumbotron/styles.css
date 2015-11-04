@@ -1,0 +1,14 @@
+.jumbotron {
+  color: #fff;
+  background: url(./background.jpg) center;
+  background-size: cover;
+  text-align: center;
+  height: 150px;
+  transition: height 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &_expanded {
+    height: 80vh;
+  }
+}

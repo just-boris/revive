@@ -1,3 +1,5 @@
 .projects {
-  margin: 0 2em;
+  &__content {
+    margin: 0 2em;
+  }
 }
