@@ -2,6 +2,7 @@ import './styles.css';
 import bem from 'b_' ;
 import { Component } from 'react';
 import Select from '../select/Select.jsx';
+import Slider from '../slider/Slider.jsx';
 import Label from '../label/Label.jsx';
 
 const languages = ['JavaScript', 'Java', 'Ruby', 'Objective-C'].map((lang) => ({
@@ -39,6 +40,10 @@ export default class Filters extends Component {
         this.props.onChange(Object.assign({}, this.props.filters, filter));
     }
 
+    onStarsChange() {
+
+    }
+
     render() {
         const filters = this.props.filters;
         return <div className={b()}>
@@ -46,9 +51,9 @@ export default class Filters extends Component {
                 <Label>Language:</Label>
                 <Select options={this.state.languages} value={filters.lang} onSelect={(lang)=> this.onChange({lang})} />
             </span>
-            <span className={b('filter')}>
-                <Label>Stars count:</Label>
-                <Select options={this.state.stars} value={filters.fromStars} onSelect={(fromStars)=> this.onChange({fromStars})} />
+            <span className={[b('filter'), b('slider')].join(' ')}>
+                <Slider range min={0} max={50} defaultValue={[filters.fromStars, filters.toStars]}
+                    onAfterChange={([fromStars, toStars]) => this.onChange({fromStars, toStars})} />
             </span>
             <span className={b('filter')}>
                 <Label>Abandoned time:</Label>

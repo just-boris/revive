@@ -7,4 +7,7 @@
     margin-right: 20px;
     margin-bottom: 0.5em;
   }
+  &__slider {
+      width: 300px;
+  }
 }

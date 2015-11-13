@@ -10,9 +10,10 @@ import Filters from '../../components/filters/Filters.jsx';
 
 const b = bem.with('projects');
 
-function parseFilters({fromStars, months, lang}) {
+function parseFilters({fromStars, toStars, months, lang}) {
     return {
-        fromStars: +fromStars || 1000,
+        fromStars: +fromStars || 10,
+        toStars: +toStars || 50,
         months: +months || 12,
         lang: lang
     }
