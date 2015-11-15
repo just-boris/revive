@@ -10,13 +10,20 @@ import Filters from '../../components/filters/Filters.jsx';
 
 const b = bem.with('projects');
 
-function parseFilters({fromStars, toStars, months, lang}) {
+function parseFilters({fromStars, toStars, fromMonths, toMonths, lang}) {
     return {
         fromStars: +fromStars || 500,
         toStars: +toStars || undefined,
-        months: +months || 12,
+        fromMonths: +fromMonths || 12,
+        toMonths: +toMonths || undefined,
         lang: lang
     }
+}
+
+function dateFromNow(months) {
+    const date = new Date();
+    date.setMonth(date.getMonth() - months);
+    return date;
 }
 
 @connect(state => {
@@ -33,7 +40,7 @@ class Projects extends Component {
 
     componentWillReceiveProps({filters}) {
         if(!shallowEqual(filters, this.props.filters)) {
-            this.requestProjects(this.props.filters);
+            this.requestProjects(filters);
         }
     }
 
@@ -41,7 +48,7 @@ class Projects extends Component {
         this.props.dispatch(pushState(null, '/projects', filters));
     }
 
-    requestProjects({fromStars, toStars, months, lang}) {
+    requestProjects({fromStars, toStars, fromMonths, toMonths, lang}) {
         const query = [];
         if(fromStars) {
             if(toStars) {
@@ -50,10 +57,10 @@ class Projects extends Component {
                 query.push(`stars:>${fromStars}`);
             }
         }
-        if(months) {
-            const pushedBefore = new Date();
-            pushedBefore.setMonth(pushedBefore.getMonth() - months);
-            query.push(`pushed:"2010-01-01 .. ${pushedBefore.toJSON()}"`);
+        if(fromMonths) {
+            const pushedBefore = dateFromNow(fromMonths);
+            const pushedAfter = toMonths ? dateFromNow(toMonths) : new Date(2010, 0, 1);
+            query.push(`pushed:"${pushedAfter.toJSON()}..${pushedBefore.toJSON()}"`);
         }
         if(lang) {
             query.push('language:' + lang);
@@ -64,7 +71,7 @@ class Projects extends Component {
     getProjectContent() {
         const {projects, projectsLoading} = this.props.projects;
         if(projectsLoading) {
-            return <p><i>Loading...</i></p>
+            return (<p><i>Loading...</i></p>);
         } else {
             return projects.map((project) => {
                 return <Project key={project.id} project={project}/>
@@ -73,12 +80,12 @@ class Projects extends Component {
     }
 
     render() {
-        return <div className={b()}>
+        return (<div className={b()}>
             <Filters filters={this.props.filters} onChange={this.onChangeFilters.bind(this)}/>
             <div className={b('content')}>
                 {this.getProjectContent()}
             </div>
-        </div>
+        </div>);
     }
 }
 

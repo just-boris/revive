@@ -3,18 +3,13 @@ import bem from 'b_' ;
 import { Component } from 'react';
 import Select from '../select/Select.jsx';
 import StatsFilter from '../stars-filter/StarsFilter.jsx';
+import TimeFilter from '../time-filter/TimeFilter.jsx';
 import Label from '../label/Label.jsx';
 
 const languages = ['JavaScript', 'Java', 'Ruby', 'Objective-C'].map((lang) => ({
     name: lang,
     value: lang
 }));
-
-const dates = [
-    {name: 'more than 2 years', value: 24},
-    {name: 'more than a year', value: 12},
-    {name: 'more than six months', value: 6}
-];
 
 const b = bem.with('filters');
 
@@ -23,32 +18,37 @@ export default class Filters extends Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
-        this.state = {
-            languages: [{name: 'Any language', value: null}, ...languages],
-            dates
-        }
+        this.launguages = [{name: 'Any language', value: null}, ...languages];
     }
 
     onChange(filter) {
         this.props.onChange(Object.assign({}, this.props.filters, filter));
     }
 
+    onChangeLang(lang) {
+        if(lang === null) {
+            lang = undefined;
+        }
+        this.onChange({lang});
+    }
+
     render() {
         const filters = this.props.filters;
-        return <div className={b()}>
+        return (<div className={b()}>
             <span className={b('filter')}>
                 <Label>Language:</Label>
-                <Select options={this.state.languages} value={filters.lang} onSelect={(lang)=> this.onChange({lang})} />
+                <Select options={this.launguages} value={filters.lang} onSelect={this.onChangeLang.bind(this)} />
             </span>
             <span className={[b('filter'), b('slider')].join(' ')}>
                 <Label>Stars count:</Label>
                 <StatsFilter defaultValue={[filters.fromStars, filters.toStars]}
                     onAfterChange={([fromStars, toStars]) => this.onChange({fromStars, toStars})} />
             </span>
-            <span className={b('filter')}>
-                <Label>Abandoned time:</Label>
-                <Select options={this.state.dates} value={filters.months} onSelect={(months)=> this.onChange({months})} />
+            <span className={[b('filter'), b('slider')].join(' ')}>
+                <Label>Time since last commit:</Label>
+                <TimeFilter defaultValue={[filters.fromMonths, filters.toMonths]}
+                    onAfterChange={([fromMonths, toMonths]) => this.onChange({fromMonths, toMonths})} />
             </span>
-        </div>
+        </div>);
     }
 }
