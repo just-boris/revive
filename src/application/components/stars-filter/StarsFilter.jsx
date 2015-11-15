@@ -5,7 +5,7 @@ export default class StarsFilter extends Component {
     constructor(...args) {
         super(...args);
         this.stars = ['10', '100', '500', '1000', '5000+'];
-        this.values = [10, 100, 500, 1000, undefined];
+        this.values = [10, 100, 500, 1000, 5000];
         this.onAfterChange = this.onAfterChange.bind(this);
     }
 
@@ -14,12 +14,10 @@ export default class StarsFilter extends Component {
         return index > -1 ? index : this.stars.length - 1;
     }
 
-    indexToVal(index) {
-        return this.values[index];
-    }
-
-    onAfterChange(index) {
-        this.props.onAfterChange(index.map(i => this.indexToVal(i)));
+    onAfterChange([left, right]) {
+        left = this.values[left];
+        right = (right !== this.values.length - 1) ? this.values[right] : undefined;
+        this.props.onAfterChange([left, right]);
     }
 
     render() {
