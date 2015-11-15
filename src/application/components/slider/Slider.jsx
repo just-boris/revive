@@ -1,4 +1,4 @@
 import 'rc-slider/assets/index.css';
-import RcSlider from 'rc-slider';
+import Slider from 'rc-slider';
 
-export default RcSlider;
+export default Slider;

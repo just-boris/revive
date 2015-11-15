@@ -12,8 +12,8 @@ const b = bem.with('projects');
 
 function parseFilters({fromStars, toStars, months, lang}) {
     return {
-        fromStars: +fromStars || 10,
-        toStars: +toStars || 50,
+        fromStars: +fromStars || 500,
+        toStars: +toStars || undefined,
         months: +months || 12,
         lang: lang
     }
@@ -41,10 +41,14 @@ class Projects extends Component {
         this.props.dispatch(pushState(null, '/projects', filters));
     }
 
-    requestProjects({fromStars, months, lang}) {
+    requestProjects({fromStars, toStars, months, lang}) {
         const query = [];
         if(fromStars) {
-            query.push('stars:>' + fromStars);
+            if(toStars) {
+                query.push(`stars:${fromStars}..${toStars}`);
+            } else {
+                query.push(`stars:>${fromStars}`);
+            }
         }
         if(months) {
             const pushedBefore = new Date();

@@ -2,19 +2,13 @@ import './styles.css';
 import bem from 'b_' ;
 import { Component } from 'react';
 import Select from '../select/Select.jsx';
-import Slider from '../slider/Slider.jsx';
+import StatsFilter from '../stars-filter/StarsFilter.jsx';
 import Label from '../label/Label.jsx';
 
 const languages = ['JavaScript', 'Java', 'Ruby', 'Objective-C'].map((lang) => ({
     name: lang,
     value: lang
 }));
-
-const stars = [
-    {name: '> 1000', value: 1000},
-    {name: '> 500', value: 500},
-    {name: '> 100', value: 100}
-];
 
 const dates = [
     {name: 'more than 2 years', value: 24},
@@ -31,17 +25,12 @@ export default class Filters extends Component {
         this.onChange = this.onChange.bind(this);
         this.state = {
             languages: [{name: 'Any language', value: null}, ...languages],
-            stars,
             dates
         }
     }
 
     onChange(filter) {
         this.props.onChange(Object.assign({}, this.props.filters, filter));
-    }
-
-    onStarsChange() {
-
     }
 
     render() {
@@ -52,7 +41,8 @@ export default class Filters extends Component {
                 <Select options={this.state.languages} value={filters.lang} onSelect={(lang)=> this.onChange({lang})} />
             </span>
             <span className={[b('filter'), b('slider')].join(' ')}>
-                <Slider range min={0} max={50} defaultValue={[filters.fromStars, filters.toStars]}
+                <Label>Stars count:</Label>
+                <StatsFilter defaultValue={[filters.fromStars, filters.toStars]}
                     onAfterChange={([fromStars, toStars]) => this.onChange({fromStars, toStars})} />
             </span>
             <span className={b('filter')}>
