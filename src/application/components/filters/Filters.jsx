@@ -5,8 +5,9 @@ import Select from '../select/Select.jsx';
 import StatsFilter from '../stars-filter/StarsFilter.jsx';
 import TimeFilter from '../time-filter/TimeFilter.jsx';
 import Label from '../label/Label.jsx';
+import languageData from './languages.js';
 
-const languages = ['JavaScript', 'Java', 'Ruby', 'Objective-C'].map((lang) => ({
+const languages = languageData.map((lang) => ({
     name: lang,
     value: lang
 }));
