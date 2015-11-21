@@ -28,7 +28,7 @@ export default class Welcome extends Component {
             </p><p>
                 Pick a language bellow, to see interesting projects.
             </p>
-            <h2 className={b('title')}>Languages</h2>
+            <h2 className={b('title')} id="languages">Languages</h2>
             <ul className={b('languages')}>
                 {languages.map((lang) => (<li key={lang}>
                     <Link className={linkStyle} to="projects" query={{lang}}>{lang}</Link>

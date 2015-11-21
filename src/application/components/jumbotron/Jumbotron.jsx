@@ -1,5 +1,4 @@
 import './styles.css';
-import {Component} from 'react';
 import Button from '../../components/button/Button.jsx';
 import { Link } from 'react-router';
 import Header from '../header/Header.jsx';
@@ -8,7 +7,7 @@ import bem from 'b_';
 const b = bem.with('jumbotron');
 
 export default function Jumbotron({expanded}) {
-    return <div className={b({expanded})}>
+    return (<div className={b({expanded})}>
         <Header />
         {expanded ? (
             <div className={b('body')}>
@@ -23,11 +22,11 @@ export default function Jumbotron({expanded}) {
                     <Link to="/projects" className={b('button')}>
                         <Button text="Find projects" view="action" size="xl" />
                     </Link>
-                    <Link to="#languages" className={b('button')}>
+                    <Link to="/" hash="#languages" className={b('button')}>
                         <Button text="Choose language" size="xl" />
                     </Link>
                 </div>
             </div>
             ) : ''}
-    </div>
+    </div>);
 }
