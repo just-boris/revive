@@ -12,6 +12,7 @@
   }
   &__title {
     margin: 1em 0 0.5em;
+    word-break: break-word;
     & > a {
       color: #333;
       text-decoration: none;
@@ -23,7 +24,6 @@
   }
   &__lang {
     font-size: 14px;
-    margin-left: 10px;
     color: #999;
   }
   &__info {

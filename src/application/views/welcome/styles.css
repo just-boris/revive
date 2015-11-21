@@ -2,12 +2,13 @@
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.5;
+    padding: 0 15px;
     &__title {
         text-align: center;
         margin: 15px 0;
     }
     &__languages {
-        padding: 0 15px;
+        padding: 0;
         list-style: none;
         columns: 2;
         li {
