@@ -33,7 +33,7 @@
     "history": "^1.13.1",
     "moment": "^2.10.6",
     "normalize-css": "^2.3.1",
-    "rc-slider": "github:just-boris/slider#npm",
+    "rc-slider": "^3.1.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-portal": "^1.1.0",

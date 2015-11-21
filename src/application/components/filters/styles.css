@@ -11,7 +11,18 @@
       .rc-slider {
           display: inline-block;
           width: 300px;
-          margin: 0 10px;
+          margin: 0 20px;
+          z-index: 0;
+          top: -3px;
+          &-track {
+              background: #FFDF66;
+          }
+          &-handle, &-dot-active {
+              border-color: #FFDF66;
+          }
+          &-handle:hover {
+              border-color: #FFC900;
+          }
       }
   }
 }
