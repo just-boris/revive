@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "prebuild": "rm -rf build",
+    "build": "PRODUCTION=true webpack",
     "start": "node tools/serve.js",
     "test": "eslint --ignore-path .gitignore ./"
   },

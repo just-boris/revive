@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PRODUCTION = process.env.PRODUCTION;
 
 function makeConfig(hotload) {
   return {
@@ -38,9 +39,12 @@ function makeConfig(hotload) {
         }),
         new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
-            MOCK_REQUEST: true
+            MOCK_REQUEST: !PRODUCTION
         })
       ];
+      if(PRODUCTION) {
+          plugins.push(new webpack.optimize.UglifyJsPlugin())
+      }
       return hotload ? plugins.concat(new webpack.HotModuleReplacementPlugin()) : plugins;
     })(),
     postcss: [require('postcss-partial-import'), require('precss'), require('autoprefixer')]
