@@ -2,13 +2,37 @@
   color: #fff;
   background: url(./background.jpg) center;
   background-size: cover;
-  text-align: center;
   height: 150px;
   transition: height 0.3s;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  line-height: 1.5;
   &_expanded {
     height: 80vh;
+  }
+  &__body {
+    margin-top: -30px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  &__text {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 46px;
+      margin: 0;
+  }
+  &__box {
+      width: 400px;
+  }
+  &__button {
+      display: inline-block;
+      margin: 0.3em 10px;
+  }
+  &__row {
+      margin: 0;
   }
 }

@@ -17,9 +17,11 @@ function request(url) {
 function requestMock(url) {
     return new Promise((resolve) => {
         console.log('Fake request', url); //eslint-disable-line no-console
-        require(['../mocks/repositories'], function(repos) {
-            resolve(repos);
-        });
+        setTimeout(() => {
+            require(['../data/repositories'], function(repos) {
+                resolve(repos);
+            });
+        }, 1000);
     })
 }
 
