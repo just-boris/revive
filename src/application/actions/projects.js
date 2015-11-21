@@ -6,6 +6,9 @@ export const RECEIVE_REPOS = 'RECEIVE_REPOS';
 const endpoint = 'https://api.github.com';
 
 function request(url) {
+    if(MOCK_REQUEST) {
+        return requestMock(url);
+    }
     return fetch(url).then((res) => {
         return res.json();
     });
@@ -14,7 +17,9 @@ function request(url) {
 function requestMock(url) {
     return new Promise((resolve) => {
         console.log('Fake request', url);
-        setTimeout(()=> resolve(require('../mocks/repositories')), 1000)
+        require(['../mocks/repositories'], function(repos) {
+            resolve(repos);
+        });
     })
 }
 
@@ -32,7 +37,7 @@ function reposReceived(repos) {
 export function fetchProjects(query) {
     return dispatch => {
         dispatch(reposRequested(query));
-        return requestMock(endpoint + `/search/repositories?q=${query}&sort=stars&order=desc`)
+        return request(endpoint + `/search/repositories?q=${query}&sort=stars&order=desc`)
             .then((data) => dispatch(reposReceived(data.items)));
     }
 }

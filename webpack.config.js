@@ -36,7 +36,10 @@ function makeConfig(hotload) {
           template: './src/index.html',
           inject: 'body'
         }),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new webpack.DefinePlugin({
+            MOCK_REQUEST: true
+        })
       ];
       return hotload ? plugins.concat(new webpack.HotModuleReplacementPlugin()) : plugins;
     })(),
