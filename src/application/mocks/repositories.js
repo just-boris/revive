@@ -1,3 +1,4 @@
+/*eslint quotes: 0 */
 module.exports = {
   "total_count": 374,
   "incomplete_results": false,
