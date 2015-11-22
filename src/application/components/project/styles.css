@@ -25,6 +25,7 @@
   &__lang {
     font-size: 14px;
     color: #999;
+    white-space: nowrap;
   }
   &__info {
     margin: 0 0 0.5em;

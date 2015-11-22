@@ -1,5 +1,5 @@
 .filters {
-  padding: 1em 2em 0.5em;
+  padding: 1em 5% 0.5em;
   border-bottom: 1px solid #bbb;
   box-shadow: 0 1px 3px #eee;
   &__filter {
@@ -8,21 +8,21 @@
     margin-bottom: 0.5em;
   }
   &__slider {
-      .rc-slider {
-          display: inline-block;
-          width: 300px;
-          margin: 0 20px;
-          z-index: 0;
-          top: -3px;
-          &-track {
-              background: #FFDF66;
-          }
-          &-handle, &-dot-active {
-              border-color: #FFDF66;
-          }
-          &-handle:hover {
-              border-color: #FFC900;
-          }
+    .rc-slider {
+      display: inline-block;
+      width: 250px;
+      margin: 0 15px;
+      z-index: 0;
+      top: -3px;
+      &-track {
+        background: #FFDF66;
       }
+      &-handle, &-dot-active {
+        border-color: #FFDF66;
+      }
+      &-handle:hover {
+        border-color: #FFC900;
+      }
+    }
   }
 }
