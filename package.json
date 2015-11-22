@@ -31,7 +31,7 @@
     "b_": "^1.3.3",
     "babel-runtime": "^5.8.25",
     "bem-components-dist": "2.3.0",
-    "history": "^1.13.1",
+    "history": "github:just-boris/history#npm",
     "moment": "^2.10.6",
     "normalize-css": "^2.3.1",
     "rc-slider": "^3.1.0",
@@ -42,7 +42,7 @@
     "react-router": "^1.0.0-rc3",
     "react-slider": "^0.6.0",
     "redux": "^3.0.2",
-    "redux-router": "^1.0.0-beta3",
+    "redux-router": "github:just-boris/redux-router#npm",
     "redux-thunk": "^1.0.0",
     "whatwg-fetch": "^0.10.0"
   }
