@@ -3,8 +3,10 @@ import bem from 'b_' ;
 import { Component } from 'react';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import { connect } from 'react-redux';
-import { fetchProjects } from '../../actions/projects';
+import { fetchProjects, resetQuery } from '../../actions/projects';
 import { pushState } from 'redux-router';
+import Waypoint from 'react-waypoint';
+import Button from '../../components/button/Button.jsx';
 import Project from '../../components/project/Project.jsx';
 import Filters from '../../components/filters/Filters.jsx';
 
@@ -34,13 +36,19 @@ function dateFromNow(months) {
 })
 class Projects extends Component {
 
-    componentDidMount() {
-        this.requestProjects(this.props.filters);
+    constructor(props, context) {
+        super(props, context);
+        this.requestProjects = this.requestProjects.bind(this);
+        this.onChangeFilters = this.onChangeFilters.bind(this);
+    }
+
+    componentWillMount() {
+        this.updateQuery(this.props.filters);
     }
 
     componentWillReceiveProps({filters}) {
         if(!shallowEqual(filters, this.props.filters)) {
-            this.requestProjects(filters);
+            this.updateQuery(filters);
         }
     }
 
@@ -48,7 +56,7 @@ class Projects extends Component {
         this.props.dispatch(pushState(null, '/projects', filters));
     }
 
-    requestProjects({fromStars, toStars, fromMonths, toMonths, lang}) {
+    updateQuery({fromStars, toStars, fromMonths, toMonths, lang}) {
         const query = [];
         if(fromStars) {
             if(toStars) {
@@ -65,25 +73,36 @@ class Projects extends Component {
         if(lang) {
             query.push('language:' + lang);
         }
-        this.props.dispatch(fetchProjects(query.join(' ')));
+        this.props.dispatch(resetQuery(query.join(' ')))
     }
 
-    getProjectContent() {
-        const {projects, projectsLoading} = this.props.projects;
+    requestProjects() {
+        this.props.dispatch(fetchProjects());
+    }
+
+    getListFooter() {
+        const {projectsLoading, projectsDone, projects} = this.props.projects;
         if(projectsLoading) {
-            return (<p><i>Loading...</i></p>);
-        } else {
-            return projects.map((project) => {
-                return <Project key={project.id} project={project}/>
-            })
+            return (<div className={b('footer', {message: true})}><i>Loading...</i></div>);
         }
+        if(projectsDone) {
+            return <div className={b('footer', {message: true})}>Shown all {projects.length} projects</div>;
+        }
+        return (<div className={b('footer')}>
+            <Waypoint onEnter={this.requestProjects} threshold={0.2} />
+            <Button text="Load more" size="l" onClick={this.requestProjects} />
+        </div>);
     }
 
     render() {
+        const {projects, page} = this.props.projects;
         return (<div className={b()}>
-            <Filters filters={this.props.filters} onChange={this.onChangeFilters.bind(this)}/>
+            <Filters filters={this.props.filters} onChange={this.onChangeFilters}/>
             <div className={b('content')}>
-                {this.getProjectContent()}
+                {projects.map((project) => {
+                    return <Project key={project.id + ' ' + page} project={project}/>
+                })}
+                {this.getListFooter()}
             </div>
         </div>);
     }

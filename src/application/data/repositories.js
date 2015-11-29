@@ -1,6 +1,6 @@
 /*eslint quotes: 0 */
 module.exports = {
-  "total_count": 374,
+  "total_count": 120,
   "incomplete_results": false,
   "items": [
     {

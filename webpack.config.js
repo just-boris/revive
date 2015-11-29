@@ -45,7 +45,7 @@ function makeConfig(hotload) {
           template: './src/index.html',
           inject: 'body'
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.css')
     ];
       if(PRODUCTION) {
           plugins.push(new webpack.optimize.UglifyJsPlugin())

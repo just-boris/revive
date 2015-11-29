@@ -6,11 +6,16 @@
     "browser": true,
     "node": true
   },
+  "plugins": [
+      "react"
+  ],
   "globals": {
       "MOCK_REQUEST": true
   },
   "rules": {
     "quotes": [2, "single"],
-    "one-var": [2, "never"]
+    "one-var": [2, "never"],
+    "react/jsx-no-undef": 2,
+    "react/no-unknown-property": 2
   }
 }
