@@ -7,6 +7,7 @@ import { fetchProjects, resetQuery } from '../../actions/projects';
 import { pushState } from 'redux-router';
 import Waypoint from 'react-waypoint';
 import Button from '../../components/button/Button.jsx';
+import Spin from '../../components/spin/Spin.jsx';
 import Project from '../../components/project/Project.jsx';
 import Filters from '../../components/filters/Filters.jsx';
 
@@ -46,6 +47,12 @@ class Projects extends Component {
         this.updateQuery(this.props.filters);
     }
 
+    componentDidMount() {
+        if(!this.props.projects.projectsLoading) {
+            this.requestProjects();
+        }
+    }
+
     componentWillReceiveProps({filters}) {
         if(!shallowEqual(filters, this.props.filters)) {
             this.updateQuery(filters);
@@ -83,7 +90,10 @@ class Projects extends Component {
     getListFooter() {
         const {projectsLoading, projectsDone, projects} = this.props.projects;
         if(projectsLoading) {
-            return (<div className={b('footer', {message: true})}><i>Loading...</i></div>);
+            return (<div className={b('footer', {message: true})}>
+                <Spin />{' '}
+                <i>Loading...</i>
+            </div>);
         }
         if(projectsDone) {
             return <div className={b('footer', {message: true})}>Shown all {projects.length} projects</div>;
