@@ -4,15 +4,15 @@
   }
   &__footer {
       margin: 20px 0;
-      padding-left: 40px;
+      padding: 0 40px;
       &_message {
           padding-top: 10px;
           border-top: 1px solid #ccc;
           padding-bottom: 10px;
       }
       .button {
-          max-width: 90%;
-          width: 300px;
+          width: 100%;
+          max-width: 300px;
       }
   }
 }
