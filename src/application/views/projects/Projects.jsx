@@ -8,6 +8,7 @@ import { pushState } from 'redux-router';
 import Waypoint from 'react-waypoint';
 import Button from '../../components/button/Button.jsx';
 import Spin from '../../components/spin/Spin.jsx';
+import Timeago from '../../components/timeago/Timeago.jsx';
 import Project from '../../components/project/Project.jsx';
 import Filters from '../../components/filters/Filters.jsx';
 
@@ -42,6 +43,7 @@ class Projects extends Component {
         this.wasMounted = false;
         this.onWaypointScroll = this.onWaypointScroll.bind(this);
         this.onChangeFilters = this.onChangeFilters.bind(this);
+        this.requestProjects = this.requestProjects.bind(this);
     }
 
     componentWillMount() {
@@ -99,12 +101,26 @@ class Projects extends Component {
         }
     }
 
+    getLimitExceededMessage(limitResetTime) {
+        return (<p>
+            {'Limit exceeded. It will be reset '}
+            <Timeago date={limitResetTime} />
+        </p>);
+    }
+
     getListFooter() {
-        const {projectsLoading, projectsDone, projects} = this.props.projects;
+        const {projectsLoading, projectsDone, projects, requestError} = this.props.projects;
         if(projectsLoading) {
             return (<div className={b('footer', {message: true})}>
                 <Spin />{' '}
                 <i>Loading...</i>
+            </div>);
+        }
+        if(requestError) {
+            const {limitExceeded, limitResetTime} = requestError;
+            return (<div className={b('footer', {message: true})}>
+                {limitExceeded ? this.getLimitExceededMessage(limitResetTime) : (<p>Unknown error</p>)}
+                <Button text="Try again" onClick={this.requestProjects} />
             </div>);
         }
         if(projectsDone) {

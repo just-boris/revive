@@ -1,4 +1,4 @@
-import {RESET_QUERY, REQUEST_REPOS, RECEIVE_REPOS} from '../actions/projects';
+import {RESET_QUERY, REQUEST_REPOS, RECEIVE_REPOS, REQUEST_REPOS_ERROR} from '../actions/projects';
 
 function update(state, newState) {
     return Object.assign({}, state, newState);
@@ -14,7 +14,10 @@ export default function(state = {projects: [], page: 0}, action = {}) {
                 query: action.query
             });
         case REQUEST_REPOS:
-            return update(state, {projectsLoading: true});
+            return update(state, {
+                requestError: null,
+                projectsLoading: true
+            });
         case RECEIVE_REPOS:
             const projects = [...state.projects, ...action.projects];
             return update(state, {
@@ -23,6 +26,12 @@ export default function(state = {projects: [], page: 0}, action = {}) {
                 projectsLoading: false,
                 projectsDone: projects.length >= action.total
             });
+        case REQUEST_REPOS_ERROR:
+            const {limitExceeded, limitResetTime} = action;
+            return update(state, {
+                projectsLoading: false,
+                requestError: {limitExceeded, limitResetTime}
+            })
         default:
             return state;
     }
