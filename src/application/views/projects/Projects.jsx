@@ -39,7 +39,8 @@ class Projects extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.requestProjects = this.requestProjects.bind(this);
+        this.wasMounted = false;
+        this.onWaypointScroll = this.onWaypointScroll.bind(this);
         this.onChangeFilters = this.onChangeFilters.bind(this);
     }
 
@@ -48,9 +49,14 @@ class Projects extends Component {
     }
 
     componentDidMount() {
+        this.wasMounted = true;
         if(!this.props.projects.projectsLoading) {
             this.requestProjects();
         }
+    }
+
+    componentWillUnmount() {
+        this.wasMounted = false;
     }
 
     componentWillReceiveProps({filters}) {
@@ -87,6 +93,12 @@ class Projects extends Component {
         this.props.dispatch(fetchProjects());
     }
 
+    onWaypointScroll() {
+        if(this.wasMounted) {
+            this.requestProjects();
+        }
+    }
+
     getListFooter() {
         const {projectsLoading, projectsDone, projects} = this.props.projects;
         if(projectsLoading) {
@@ -99,7 +111,7 @@ class Projects extends Component {
             return <div className={b('footer', {message: true})}>Shown all {projects.length} projects</div>;
         }
         return (<div className={b('footer')}>
-            <Waypoint onEnter={this.requestProjects} threshold={0.2} />
+            <Waypoint onEnter={this.onWaypointScroll} threshold={0.2} />
             <Button text="Load more" size="l" onClick={this.requestProjects} />
         </div>);
     }
