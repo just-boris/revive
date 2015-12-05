@@ -33,7 +33,7 @@ function requestMock(url) {
             });
             reject(err);
         }, 1000);
-    })
+    });
 }
 
 function reposRequested(query) {
@@ -49,7 +49,7 @@ function reposRequestError({response}) {
         type: REQUEST_REPOS_ERROR,
         limitExceeded: response.status === 403,
         limitResetTime: (+response.headers.get('X-RateLimit-Reset'))*1000
-    }
+    };
 }
 
 export function resetQuery(query) {
@@ -65,5 +65,5 @@ export function fetchProjects() {
                 (data) =>  dispatch(reposReceived(data.items, data.total_count)),
                 (err) => dispatch(reposRequestError(err))
             );
-    }
+    };
 }

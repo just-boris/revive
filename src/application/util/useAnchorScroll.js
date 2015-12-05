@@ -22,5 +22,5 @@ export default function useAnchorScroll(createHistory) {
             }
         });
         return history;
-    }
+    };
 }

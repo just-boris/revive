@@ -30,13 +30,7 @@ function dateFromNow(months) {
     return date;
 }
 
-@connect(state => {
-    return {
-        projects: state.projects,
-        filters: parseFilters(state.router.location.query)
-    }
-})
-class Projects extends Component {
+export class Projects extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -146,4 +140,9 @@ class Projects extends Component {
     }
 }
 
-export default Projects;
+export default connect(state => {
+    return {
+        projects: state.projects,
+        filters: parseFilters(state.router.location.query)
+    }
+})(Projects);

@@ -48,7 +48,7 @@ function makeConfig(hotload) {
         new ExtractTextPlugin('styles.css')
     ];
       if(PRODUCTION) {
-          plugins.push(new webpack.optimize.UglifyJsPlugin())
+          plugins.push(new webpack.optimize.UglifyJsPlugin());
       }
       return hotload ? plugins.concat(new webpack.HotModuleReplacementPlugin()) : plugins;
     })(),

@@ -2644,4 +2644,4 @@ module.exports = {
       "score": 1.0
     }
   ]
-}
+};

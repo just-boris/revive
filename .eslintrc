@@ -15,6 +15,7 @@
   "rules": {
     "quotes": [2, "single"],
     "one-var": [2, "never"],
+    "semi": [2, "always"],
     "react/jsx-no-undef": 2,
     "react/no-unknown-property": 2
   }

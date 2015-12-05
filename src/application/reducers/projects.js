@@ -31,7 +31,7 @@ export default function(state = {projects: [], page: 0}, action = {}) {
             return update(state, {
                 projectsLoading: false,
                 requestError: {limitExceeded, limitResetTime}
-            })
+            });
         default:
             return state;
     }

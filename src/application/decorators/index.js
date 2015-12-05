@@ -36,7 +36,7 @@ export function hoverable(Target) {
         }
         render() {
             return <Target onMouseEnter={this.onMouseEnter.bind(this)}
-                onMouseLeave={this.onMouseLeave.bind(this)} {...this.props} {...this.state}/>
+                onMouseLeave={this.onMouseLeave.bind(this)} {...this.props} {...this.state}/>;
         }
     }
     return Hoverable;
