@@ -9,7 +9,7 @@
     "start": "node tools/serve.js",
     "pretest": "eslint --ignore-path .gitignore --ext jsx --ext js ./",
     "test": "npm run jasmine",
-    "jasmine": "NODE_PATH=src JASMINE_CONFIG_PATH=jasmine.json jasmine"
+    "jasmine": "JASMINE_CONFIG_PATH=jasmine.json jasmine"
   },
   "author": "",
   "license": "ISC",
@@ -39,9 +39,10 @@
     "babel-runtime": "^5.8.25",
     "bem-components-dist": "2.3.0",
     "history": "github:just-boris/history#npm",
+    "isomorphic-fetch": "^2.2.0",
     "moment": "^2.10.6",
     "normalize-css": "^2.3.1",
-    "rc-slider": "github:just-boris/slider#npm",
+    "rc-slider": "3.1.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-portal": "^1.1.0",
@@ -51,7 +52,6 @@
     "react-waypoint": "^1.1.2",
     "redux": "^3.0.2",
     "redux-router": "github:just-boris/redux-router#npm",
-    "redux-thunk": "^1.0.0",
-    "whatwg-fetch": "^0.10.0"
+    "redux-thunk": "^1.0.0"
   }
 }

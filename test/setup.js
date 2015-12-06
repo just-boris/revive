@@ -1,8 +1,11 @@
-/*eslint-env jasmine*/
-require('babel-core/register');
-require('jasmine-collection-matchers');
-global.self = global;
+//add extra modules root
+process.env.NODE_PATH = 'src';
+module.constructor._initPaths();
 
+//jasmine addons
 global.joc = jasmine.objectContaining;
+require('jasmine-collection-matchers');
 
+//require hooks
 require.extensions['.css'] = function () {};
+require('babel-core/register');
