@@ -1,0 +1,11 @@
+{
+  "spec_dir": "test",
+  "spec_files": [
+    "**/*.spec.jsx"
+  ],
+  "helpers": [
+      "setup.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}

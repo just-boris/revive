@@ -7,7 +7,9 @@
     "prebuild": "rm -rf build/*",
     "build": "NODE_ENV=production webpack",
     "start": "node tools/serve.js",
-    "test": "eslint --ignore-path .gitignore ./"
+    "pretest": "eslint --ignore-path .gitignore --ext jsx --ext js ./",
+    "test": "npm run jasmine",
+    "jasmine": "NODE_PATH=src JASMINE_CONFIG_PATH=jasmine.json jasmine"
   },
   "author": "",
   "license": "ISC",
@@ -21,8 +23,12 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "html-webpack-plugin": "^1.6.2",
+    "jasmine": "^2.4.1",
+    "jasmine-collection-matchers": "^0.1.2",
     "postcss-loader": "^0.6.0",
     "precss": "^1.2.3",
+    "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.3",
     "style-loader": "^0.12.4",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",

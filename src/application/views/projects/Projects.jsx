@@ -46,7 +46,7 @@ export class Projects extends Component {
 
     componentDidMount() {
         this.wasMounted = true;
-        if(!this.props.projects.projectsLoading) {
+        if(!this.props.projectsData.projectsLoading) {
             this.requestProjects();
         }
     }
@@ -103,7 +103,7 @@ export class Projects extends Component {
     }
 
     getListFooter() {
-        const {projectsLoading, projectsDone, projects, requestError} = this.props.projects;
+        const {projectsLoading, projectsDone, projects, requestError} = this.props.projectsData;
         if(projectsLoading) {
             return (<div className={b('footer', {message: true})}>
                 <Spin />{' '}
@@ -127,7 +127,7 @@ export class Projects extends Component {
     }
 
     render() {
-        const {projects, page} = this.props.projects;
+        const {projects, page} = this.props.projectsData;
         return (<div className={b()}>
             <Filters filters={this.props.filters} onChange={this.onChangeFilters}/>
             <div className={b('content')}>
@@ -142,7 +142,7 @@ export class Projects extends Component {
 
 export default connect(state => {
     return {
-        projects: state.projects,
+        projectsData: state.projects,
         filters: parseFilters(state.router.location.query)
     };
 })(Projects);

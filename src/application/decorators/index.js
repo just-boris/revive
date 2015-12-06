@@ -38,6 +38,8 @@ export function hoverable(Target) {
             return <Target onMouseEnter={this.onMouseEnter.bind(this)}
                 onMouseLeave={this.onMouseLeave.bind(this)} {...this.props} {...this.state}/>;
         }
+
+        static displayName = Target.name;
     }
     return Hoverable;
 }
