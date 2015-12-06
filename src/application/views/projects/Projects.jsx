@@ -58,6 +58,7 @@ export class Projects extends Component {
     componentWillReceiveProps({filters}) {
         if(!shallowEqual(filters, this.props.filters)) {
             this.updateQuery(filters);
+            this.requestProjects();
         }
     }
 

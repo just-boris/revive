@@ -57,7 +57,7 @@ export function resetQuery(query) {
 }
 
 export function fetchProjects() {
-    return (dispatch, getState) => {
+    return function fetchProjectsAction(dispatch, getState) {
         const {query, page} = getState().projects;
         dispatch(reposRequested(query));
         return request(endpoint + `/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&page=${page+1}`)

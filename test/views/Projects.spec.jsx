@@ -39,6 +39,12 @@ describe('<Projects />', function() {
         expect(this.dispatch).toHaveBeenCalledWith({type: HISTORY_API, payload: joc({ method: 'pushState'})});
     });
 
+    it('should update query and request projects after filters update', function() {
+        this.projects.setProps({filters: {fromStars: 150}});
+        expect(this.dispatch).toHaveBeenCalledWith(joc({type: 'RESET_QUERY'}));
+        expect(this.dispatch).toHaveBeenCalledWith(joc({name: 'fetchProjectsAction'}));
+    });
+
     it('should render projects list', function() {
         this.projects.setProps({projectsData: {projects: [
             {id: 10, full_name: 'awesome/thing'},
