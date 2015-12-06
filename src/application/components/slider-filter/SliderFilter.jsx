@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component } from 'react';
 import Slider from '../slider/Slider.jsx';
 
 export default class StarsFilter extends Component {
@@ -19,9 +19,9 @@ export default class StarsFilter extends Component {
     }
 
     render() {
-        const {defaultValue, marks} = this.props
-        const defaultIndex = defaultValue.map(val => this.valToIndex(val))
+        const {defaultValue, marks} = this.props;
+        const defaultIndex = defaultValue.map(val => this.valToIndex(val));
         return <Slider min={0} max={marks.length-1} range marks={marks} step={null}
-            defaultValue={defaultIndex} onAfterChange={this.onAfterChange} />
+            defaultValue={defaultIndex} onAfterChange={this.onAfterChange} />;
     }
 }

@@ -23,7 +23,7 @@ export default class Select extends BemComponent {
     }
 
     closeSelect() {
-        this.setState({opened: false})
+        this.setState({opened: false});
     }
 
     getDisplayValue(value) {
@@ -43,7 +43,7 @@ export default class Select extends BemComponent {
     render() {
         const {value, options, theme, size} = this.props;
         const {opened} = this.state;
-        return <div className={b({theme, size, opened})}>
+        return (<div className={b({theme, size, opened})}>
             <Button className={b('button')} text={this.getDisplayValue(value)} onMouseDown={this.toggleSelect.bind(this)}>
                 <i className={['icon', b('tick')].join(' ')}></i>
             </Button>
@@ -52,7 +52,7 @@ export default class Select extends BemComponent {
                     {options.map(this.getMenuItem.bind(this))}
                 </Menu>
             </Popup>
-        </div>
+        </div>);
     }
 
     @extend

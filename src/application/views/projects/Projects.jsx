@@ -14,14 +14,14 @@ import Filters from '../../components/filters/Filters.jsx';
 
 const b = bem.with('projects');
 
-function parseFilters({fromStars, toStars, fromMonths, toMonths, lang}) {
+export function parseFilters({fromStars, toStars, fromMonths, toMonths, lang}) {
     return {
         fromStars: +fromStars || 500,
         toStars: +toStars || undefined,
         fromMonths: +fromMonths || 12,
         toMonths: +toMonths || undefined,
         lang: lang
-    }
+    };
 }
 
 function dateFromNow(months) {
@@ -82,7 +82,7 @@ export class Projects extends Component {
         if(lang) {
             query.push('language:' + lang);
         }
-        this.props.dispatch(resetQuery(query.join(' ')))
+        this.props.dispatch(resetQuery(query.join(' ')));
     }
 
     requestProjects() {
@@ -132,7 +132,7 @@ export class Projects extends Component {
             <Filters filters={this.props.filters} onChange={this.onChangeFilters}/>
             <div className={b('content')}>
                 {projects.map((project) => {
-                    return <Project key={project.id + ' ' + page} project={project}/>
+                    return <Project key={project.id + ' ' + page} project={project}/>;
                 })}
                 {this.getListFooter()}
             </div>
@@ -144,5 +144,5 @@ export default connect(state => {
     return {
         projects: state.projects,
         filters: parseFilters(state.router.location.query)
-    }
+    };
 })(Projects);

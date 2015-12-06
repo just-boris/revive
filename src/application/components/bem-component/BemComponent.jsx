@@ -1,4 +1,4 @@
-import {Component, PropTypes} from 'react';
+import {Component} from 'react';
 
 export default class BemComponent extends Component {
 

@@ -11,13 +11,13 @@ const POSITION_STRATEGY = {
         return {
             top: bottom + mainOffset + 'px',
             left: left + secondaryOffset +'px'
-        }
+        };
     },
     'top-left': ({top, left}, {height}, {mainOffset, secondaryOffset}) => {
         return {
             top: top - height - mainOffset + 'px',
             left: left + secondaryOffset +'px'
-        }
+        };
     }
 };
 
@@ -39,9 +39,9 @@ export default class Popup extends BemComponent {
 
     render() {
         const {theme, size, visible, direction, autoclosable, onClose} = this.props;
-        return <Portal isOpened={true} closeOnOutsideClick={autoclosable} onClose={onClose}>
+        return (<Portal isOpened={true} closeOnOutsideClick={autoclosable} onClose={onClose}>
             <div className={b({theme, size, visible, direction, js: 'inited'})} ref="popup">{this.props.children}</div>
-        </Portal>
+        </Portal>);
     }
 
     @extend

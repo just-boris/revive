@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
 import store from './store';

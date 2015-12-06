@@ -13,10 +13,10 @@ class App extends Component {
     }
 
     render() {
-        return <div>
+        return (<div>
             <Jumbotron expanded={this.isRootRoute()} />
             {this.props.children}
-        </div>
+        </div>);
     }
 }
 
