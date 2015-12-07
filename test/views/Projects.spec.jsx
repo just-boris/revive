@@ -1,5 +1,5 @@
 import { Projects } from 'application/views/projects/Projects.jsx';
-import { shallow } from 'reagent';
+import { shallow } from 'enzyme';
 import { HISTORY_API } from 'redux-router/lib/constants';
 
 describe('<Projects />', function() {
