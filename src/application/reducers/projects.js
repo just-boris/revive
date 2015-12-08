@@ -27,10 +27,9 @@ export default function(state = {projects: [], page: 0}, action = {}) {
                 projectsDone: projects.length >= action.total
             });
         case REQUEST_REPOS_ERROR:
-            const {limitExceeded, limitResetTime} = action;
             return update(state, {
                 projectsLoading: false,
-                requestError: {limitExceeded, limitResetTime}
+                requestError: action
             });
         default:
             return state;

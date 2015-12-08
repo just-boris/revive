@@ -1,0 +1,15 @@
+.projects-error {
+    &__token {
+        line-height: 40px;
+        & > * {
+            vertical-align: top;
+        }
+        .input {
+            width: 205px;
+        }
+    }
+    &__retry {
+        width: 100%;
+        max-width: 300px;
+    }
+}

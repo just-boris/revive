@@ -4,11 +4,12 @@ import { Component } from 'react';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import { connect } from 'react-redux';
 import { fetchProjects, resetQuery } from '../../actions/projects';
+import { setToken } from '../../actions/token';
 import { pushState } from 'redux-router';
 import Waypoint from 'react-waypoint';
 import Button from '../../components/button/Button.jsx';
 import Spin from '../../components/spin/Spin.jsx';
-import Timeago from '../../components/timeago/Timeago.jsx';
+import ProjectsError from '../../components/projects-error/ProjectsError.jsx';
 import Project from '../../components/project/Project.jsx';
 import Filters from '../../components/filters/Filters.jsx';
 
@@ -38,6 +39,7 @@ export class Projects extends Component {
         this.onWaypointScroll = this.onWaypointScroll.bind(this);
         this.onChangeFilters = this.onChangeFilters.bind(this);
         this.requestProjects = this.requestProjects.bind(this);
+        this.setToken = this.setToken.bind(this);
     }
 
     componentWillMount() {
@@ -90,36 +92,36 @@ export class Projects extends Component {
         this.props.dispatch(fetchProjects());
     }
 
+    setToken(value) {
+        this.props.dispatch(setToken(value));
+        this.requestProjects();
+    }
+
     onWaypointScroll() {
         if(this.wasMounted) {
             this.requestProjects();
         }
     }
 
-    getLimitExceededMessage(limitResetTime) {
-        return (<p>
-            {'Limit exceeded. It will be reset '}
-            <Timeago date={limitResetTime} />
-        </p>);
-    }
-
     getListFooter() {
         const {projectsLoading, projectsDone, projects, requestError} = this.props.projectsData;
+        const {value: token} = this.props.token;
+        const className = b('footer', {message: true});
         if(projectsLoading) {
-            return (<div className={b('footer', {message: true})}>
+            return (<div className={className}>
                 <Spin />{' '}
                 <i>Loading...</i>
             </div>);
         }
         if(requestError) {
-            const {limitExceeded, limitResetTime} = requestError;
-            return (<div className={b('footer', {message: true})}>
-                {limitExceeded ? this.getLimitExceededMessage(limitResetTime) : (<p>Unknown error</p>)}
-                <Button text="Try again" onClick={this.requestProjects} />
-            </div>);
+            const {limitExceeded, badToken, limitResetTime} = requestError;
+            return <ProjectsError {...{
+                onRetry: this.requestProjects,
+                onSetToken: this.setToken,
+                limitExceeded, badToken, limitResetTime, token, className}}/>
         }
         if(projectsDone) {
-            return <div className={b('footer', {message: true})}>Shown all {projects.length} projects</div>;
+            return <div className={className}>Shown all {projects.length} projects</div>;
         }
         return (<div className={b('footer')}>
             <Waypoint onEnter={this.onWaypointScroll} threshold={0.2} />
@@ -144,6 +146,7 @@ export class Projects extends Component {
 export default connect(state => {
     return {
         projectsData: state.projects,
+        token: state.token,
         filters: parseFilters(state.router.location.query)
     };
 })(Projects);

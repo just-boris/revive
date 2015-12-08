@@ -36,9 +36,9 @@ function makeConfig(hotload) {
       const plugins = [
         new webpack.IgnorePlugin(/locale/, /moment/),
         new webpack.DefinePlugin({
-            MOCK_REQUEST: !PRODUCTION,
             'process.env': {
-              NODE_ENV: JSON.stringify(NODE_ENV)
+                MOCK_REQUEST: !PRODUCTION,
+                NODE_ENV: JSON.stringify(NODE_ENV)
             }
         }),
         new HtmlWebpackPlugin({

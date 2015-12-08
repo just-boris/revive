@@ -8,7 +8,7 @@ export const RECEIVE_REPOS = 'RECEIVE_REPOS';
 const endpoint = 'https://api.github.com';
 
 function request(url) {
-    if(MOCK_REQUEST) {
+    if(process.env.MOCK_REQUEST) {
         return requestMock(url);
     }
     return fetch(url);
@@ -48,6 +48,7 @@ function reposRequestError({response}) {
     return {
         type: REQUEST_REPOS_ERROR,
         limitExceeded: response.status === 403,
+        badToken: response.status === 401,
         limitResetTime: (+response.headers.get('X-RateLimit-Reset'))*1000
     };
 }
@@ -58,10 +59,12 @@ export function resetQuery(query) {
 
 export function fetchProjects() {
     return function fetchProjectsAction(dispatch, getState) {
-        const {query, page} = getState().projects;
+        const {projects: {query, page}, token: {value: token}} = getState();
+        const url = endpoint + `/search/repositories?q=${encodeURIComponent(query)}` +
+            `&sort=stars&order=desc&page=${page+1}` +
+            (token ? `&access_token=${token}` : '');
         dispatch(reposRequested(query));
-        return request(endpoint + `/search/repositories?q=${encodeURIComponent(query)}&sort=stars&order=desc&page=${page+1}`)
-            .then(
+        return request(url).then(
                 (data) =>  dispatch(reposReceived(data.items, data.total_count)),
                 (err) => dispatch(reposRequestError(err))
             );

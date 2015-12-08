@@ -10,9 +10,5 @@
           border-top: 1px solid #ccc;
           padding-bottom: 10px;
       }
-      .button {
-          width: 100%;
-          max-width: 300px;
-      }
   }
 }
