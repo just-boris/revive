@@ -11,9 +11,10 @@ describe('<Projects />', function() {
         const projectsData = {
             projects: []
         };
+        const token = {};
         const dispatch = jasmine.createSpy('dispatch');
         this.dispatch = dispatch;
-        this.projects = shallow(<Projects {...{filters, dispatch, projectsData}} />);
+        this.projects = shallow(<Projects {...{filters, dispatch, projectsData, token}} />);
     });
 
     it('should render empty view', function() {

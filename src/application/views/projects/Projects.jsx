@@ -118,7 +118,7 @@ export class Projects extends Component {
             return <ProjectsError {...{
                 onRetry: this.requestProjects,
                 onSetToken: this.setToken,
-                limitExceeded, badToken, limitResetTime, token, className}}/>
+                limitExceeded, badToken, limitResetTime, token, className}}/>;
         }
         if(projectsDone) {
             return <div className={className}>Shown all {projects.length} projects</div>;
