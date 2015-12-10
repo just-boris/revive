@@ -9,7 +9,8 @@
     "start": "node tools/serve.js",
     "pretest": "eslint --ignore-path .gitignore --ext jsx --ext js ./",
     "test": "npm run jasmine",
-    "jasmine": "JASMINE_CONFIG_PATH=jasmine.json jasmine"
+    "jasmine": "JASMINE_CONFIG_PATH=jasmine.json jasmine",
+    "coverage": "JASMINE_CONFIG_PATH=jasmine.json istanbul cover jasmine"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "html-webpack-plugin": "^1.6.2",
+    "istanbul": "^0.4.1",
     "jasmine": "^2.4.1",
     "jasmine-collection-matchers": "^0.1.2",
     "postcss-loader": "^0.6.0",

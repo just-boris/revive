@@ -14,6 +14,7 @@ function request(url) {
     return fetch(url);
 }
 
+/* istanbul ignore next */
 function requestMock(url) {
     return new Promise((resolve, reject) => {
         console.log('Fake request', url); //eslint-disable-line no-console

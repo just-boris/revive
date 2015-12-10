@@ -54,4 +54,18 @@ describe('<Projects />', function() {
         ]}});
         expect(this.projects.find('Project')).toHaveLength(3);
     });
+
+    it('should render error message', function() {
+        this.projects.setProps({projectsData: {projects: [], projectsLoading: false, requestError: {}}});
+        expect(this.projects.find('ProjectsError')).toHaveLength(1);
+    });
+
+    it('should update token and request more projects', function() {
+        this.dispatch.calls.reset();
+        this.projects.setProps({projectsData: {projects: [], projectsLoading: false, requestError: {}}});
+        const error = this.projects.find('ProjectsError');
+        error.props().onSetToken('abab');
+        expect(this.dispatch).toHaveBeenCalledWith(joc({type: 'SET_TOKEN'}));
+        expect(this.dispatch).toHaveBeenCalledWith(joc({name: 'fetchProjectsAction'}));
+    });
 });
