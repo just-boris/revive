@@ -13,6 +13,7 @@ class MenuItem extends BemComponent {
 
     @extend
     static defaultProps = {
+        className: '',
         onClick() {}
     }
 }
