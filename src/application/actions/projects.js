@@ -45,13 +45,22 @@ function reposReceived(projects, total) {
     return {type: RECEIVE_REPOS, projects, total};
 }
 
-function reposRequestError({response}) {
-    return {
-        type: REQUEST_REPOS_ERROR,
-        limitExceeded: response.status === 403,
-        badToken: response.status === 401,
-        limitResetTime: (+response.headers.get('X-RateLimit-Reset'))*1000
-    };
+function reposRequestError(error) {
+    if(error.response) {
+        const {response} = error;
+        return {
+            type: REQUEST_REPOS_ERROR,
+            limitExceeded: response.status === 403,
+            badToken: response.status === 401,
+            limitResetTime: (+response.headers.get('X-RateLimit-Reset'))*1000
+        };
+    } else {
+        return {
+            type: REQUEST_REPOS_ERROR,
+            message: error.message
+        };
+    }
+
 }
 
 export function resetQuery(query) {
@@ -65,9 +74,8 @@ export function fetchProjects() {
             `&sort=stars&order=desc&page=${page+1}` +
             (token ? `&access_token=${token}` : '');
         dispatch(reposRequested(query));
-        return request(url).then(
-                (data) =>  dispatch(reposReceived(data.items, data.total_count)),
-                (err) => dispatch(reposRequestError(err))
-            );
+        return request(url)
+            .then(data =>  dispatch(reposReceived(data.items, data.total_count)))
+            .catch(err => dispatch(reposRequestError(err)));
     };
 }

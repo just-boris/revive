@@ -4,7 +4,7 @@ function update(state, newState) {
     return Object.assign({}, state, newState);
 }
 
-export default function(state = {projects: [], page: 0}, action = {}) {
+export default function(state = {projects: [], page: 0}, action) {
     switch(action.type) {
         case RESET_QUERY:
             return  update(state, {
