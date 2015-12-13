@@ -1,6 +1,7 @@
 import testStore from '../testStore';
 import nock from 'nock';
 import {resetQuery, fetchProjects} from 'application/actions/projects';
+import {setToken} from 'application/actions/token';
 nock.disableNetConnect();
 
 describe('projects store', function() {
@@ -99,6 +100,35 @@ describe('projects store', function() {
                 done();
             });
         });
+
+        it('should load first page after change query', function(done) {
+            this.store.dispatch(resetQuery('another query'));
+            this.server
+                .get('/search/repositories')
+                .query({q: 'another query', sort: 'stars', order: 'desc', page: 1})
+                .reply(200, {items: [{id: 108}], total_count: 2});
+            this.store.dispatch(fetchProjects()).then(() => {
+                expect(this.getProjectsState()).toEqual(joc({
+                    projects: [jany(Object)],
+                    page: 1
+                }));
+                done();
+            });
+        });
     });
 
+    it('should use token if it has been provided', function(done) {
+        this.store.dispatch(setToken('d1b723f'));
+        this.server
+            .get('/search/repositories')
+            .query({q: 'test query', sort: 'stars', order: 'desc', page: 1, access_token: 'd1b723f'})
+            .reply(200, {items: [], total_count: 0});
+        this.store.dispatch(fetchProjects()).then(() => {
+            expect(this.getProjectsState()).toEqual(joc({
+                projectsLoading: false,
+                page: 1
+            }));
+            done();
+        });
+    });
 });
