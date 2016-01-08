@@ -35,7 +35,6 @@ export class Projects extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.wasMounted = false;
         this.onWaypointScroll = this.onWaypointScroll.bind(this);
         this.onChangeFilters = this.onChangeFilters.bind(this);
         this.requestProjects = this.requestProjects.bind(this);
@@ -44,17 +43,6 @@ export class Projects extends Component {
 
     componentWillMount() {
         this.updateQuery(this.props.filters);
-    }
-
-    componentDidMount() {
-        this.wasMounted = true;
-        if(!this.props.projectsData.projectsLoading) {
-            this.requestProjects();
-        }
-    }
-
-    componentWillUnmount() {
-        this.wasMounted = false;
     }
 
     componentWillReceiveProps({filters}) {
@@ -98,9 +86,7 @@ export class Projects extends Component {
     }
 
     onWaypointScroll() {
-        if(this.wasMounted) {
-            this.requestProjects();
-        }
+        this.requestProjects();
     }
 
     getListFooter() {
